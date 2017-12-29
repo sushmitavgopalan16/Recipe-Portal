@@ -5,6 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 import re
+import time
 
 def get_links(url):
     
@@ -199,7 +200,14 @@ def do_stuff(url):
     if ".com/hi" in url:
         print("Hindi. Ignoring")
         return
-    page = requests.get(url)
+
+    try:
+    	page = requests.get(url)
+    
+    except:
+    	print("Sleeping for 30 seconds")
+    	time.sleep(30)
+
     if not page.status_code == 200:
         print("Page not found")
         return
